@@ -45,5 +45,5 @@ export function filterByCity(list: Festival[], query: string): Festival[] {
 
 export function uniqueCities(list: Festival[]): string[] {
   const set = new Set(list.map((f) => f.city.trim()).filter(Boolean));
-  return [...set].sort((a, b) => a.localeCompare(b));
+  return Array.from(set).sort((a, b) => a.localeCompare(b));
 }
