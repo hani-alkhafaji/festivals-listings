@@ -17,13 +17,13 @@ export default function AdminPage() {
           <strong>Published Festivals</strong>. The live site reads from this tab every few minutes.
         </li>
         <li>
-          <strong>VS Code:</strong> edit <code>data/festivals.json</code>, add images under{" "}
-          <code>public/festivals/</code>, then <code>git push</code> (works if GAS URL is not set).
+          <strong>VS Code:</strong> edit <code className={styles.inlineCode}>data/festivals.json</code>, add images under{" "}
+          <code className={styles.inlineCode}>public/festivals/</code>, then <code className={styles.inlineCode}>git push</code> (works if GAS URL is not set).
         </li>
       </ol>
       <p className={styles.p}>
         City names must be in <strong>English</strong> (Vienna, Prague, Berlin). Events sort by{" "}
-        <code>sortDate</code> (YYYY-MM-DD), nearest date first.
+        <code className={styles.inlineCode}>sortDate</code> (YYYY-MM-DD), nearest date first.
       </p>
     </div>
   );
