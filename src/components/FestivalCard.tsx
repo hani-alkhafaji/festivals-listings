@@ -1,0 +1,26 @@
+import Link from "next/link";
+import type { Festival } from "@/lib/festivals";
+import styles from "./FestivalCard.module.css";
+
+export function FestivalCard({ festival }: { festival: Festival }) {
+  return (
+    <Link href={`/festival/${festival.id}`} className={styles.link}>
+      <article className={styles.card}>
+        <div className={styles.imageWrap}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={festival.image} alt={festival.title} className={styles.image} />
+        </div>
+        <div className={styles.body}>
+          <p className={styles.meta}>
+            <span>📅 {festival.dateStart} – {festival.dateEnd}</span>
+            <span>🕐 {festival.timeStart} – {festival.timeEnd}</span>
+            <span>📍 {festival.city}</span>
+            <span className={styles.address}>{festival.address}</span>
+          </p>
+          <h2 className={styles.title}>{festival.title}</h2>
+          <p className={styles.desc}>{festival.descriptionShort}</p>
+        </div>
+      </article>
+    </Link>
+  );
+}

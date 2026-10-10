@@ -1,0 +1,45 @@
+.main {
+  padding: 0 1rem 3rem;
+  background: #fff;
+}
+
+.headline {
+  max-width: 460px;
+  margin: 1.1rem auto 0;
+  font-size: clamp(1.35rem, 5vw, 1.85rem);
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  color: #000;
+}
+
+.sectionLabel {
+  max-width: 460px;
+  margin: 1.25rem auto 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.list {
+  max-width: 460px;
+  margin: 0 auto;
+  padding-top: min(10vh, 4rem);
+  scroll-snap-type: y proximity;
+}
+
+.snapItem {
+  scroll-snap-align: center;
+  scroll-margin-top: 5rem;
+  margin-bottom: 1.75rem;
+}
+
+.empty {
+  padding: 1.5rem;
+  text-align: center;
+  color: #444;
+  background: #fafafa;
+  border: 1px dashed #ddd;
+  border-radius: 12px;
+  line-height: 1.5;
+}

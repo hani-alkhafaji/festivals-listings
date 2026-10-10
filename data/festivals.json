@@ -1,0 +1,32 @@
+[
+  {
+    "id": "prague-bachata-2027",
+    "title": "Prague Bachata Dominant Congress 2027",
+    "city": "Prague",
+    "address": "Prague Congress Centre, Czechia",
+    "dateStart": "23 APR 2027",
+    "dateEnd": "26 APR 2027",
+    "timeStart": "10:00",
+    "timeEnd": "04:00",
+    "sortDate": "2027-04-23",
+    "image": "https://images.unsplash.com/photo-1504609770536-021059aa1225?w=900&q=80",
+    "descriptionShort": "The largest bachata congress in Prague with workshops, parties and shows.",
+    "descriptionLong": "Four days of bachata with international artists, day workshops and nightly socials. All levels welcome.",
+    "instagramUrl": "https://www.instagram.com/YOUR_INSTAGRAM_HANDLE/"
+  },
+  {
+    "id": "vienna-salsa-weekend-2027",
+    "title": "Vienna Salsa & Bachata Weekend",
+    "city": "Vienna",
+    "address": "Vienna, Austria",
+    "dateStart": "15 MAY 2027",
+    "dateEnd": "17 MAY 2027",
+    "timeStart": "19:00",
+    "timeEnd": "03:00",
+    "sortDate": "2027-05-15",
+    "image": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=900&q=80",
+    "descriptionShort": "A weekend of salsa and bachata socials in the heart of Vienna.",
+    "descriptionLong": "International DJs, workshops and parties at partner venues across Vienna.",
+    "instagramUrl": "https://www.instagram.com/YOUR_INSTAGRAM_HANDLE/"
+  }
+]
