@@ -17,6 +17,8 @@ export type Festival = {
   instagramUrl: string;
   /** When set, card opens this Go4Events page (image/title loaded from Go4Events). */
   go4eventsUrl?: string;
+  /** Ticket booking page (GoAndDance, etc.) */
+  bookingUrl?: string;
 };
 
 export function getSiteConfig() {

@@ -51,7 +51,8 @@ function doPost(e) {
         data.description,
         data.status || 'NEW',
         data.listingFeeEur || 49,
-        data.ticketPrice || ''
+        data.ticketPrice || '',
+        data.bookingUrl || ''
       ]);
       return jsonOut({ ok: true });
     }

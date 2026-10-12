@@ -7,6 +7,7 @@ export function FestivalCard({ festival }: { festival: Festival }) {
   const imageSrc = festival.image || "/festivals/placeholder.svg";
   const externalUrl = festival.go4eventsUrl?.trim();
   const instagramUrl = festival.instagramUrl?.trim();
+  const bookingUrl = festival.bookingUrl?.trim();
   const igLabel = instagramUrl ? instagramHandleFromUrl(instagramUrl) : null;
 
   const eventHref = externalUrl || `/festival/${encodeURIComponent(festival.id)}`;
@@ -48,6 +49,18 @@ export function FestivalCard({ festival }: { festival: Festival }) {
           <p className={styles.go4Hint}>Tap card for full details on Go4Events</p>
         ) : null}
       </EventLink>
+      {bookingUrl ? (
+        <a
+          href={bookingUrl}
+          className={styles.bookBtn}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Book ticket now
+        </a>
+      ) : (
+        <p className={styles.noBook}>No booking link</p>
+      )}
     </article>
   );
 }

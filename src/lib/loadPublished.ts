@@ -65,6 +65,9 @@ function normalizeFestival(raw: Record<string, unknown>): Festival | null {
     instagramUrl:
       pickField(raw, ["instagramurl", "instagram"]) ||
       String(raw.instagramUrl ?? "").trim(),
+    bookingUrl:
+      pickField(raw, ["bookingurl", "bookticket", "ticketurl", "booknow"]) ||
+      String(raw.bookingUrl ?? "").trim(),
     go4eventsUrl,
   };
 }
@@ -99,6 +102,7 @@ async function enrichFromGo4(f: Festival): Promise<Festival> {
     descriptionShort: f.descriptionShort || fromGo4.descriptionShort,
     descriptionLong: f.descriptionLong || fromGo4.descriptionLong,
     instagramUrl: f.instagramUrl,
+    bookingUrl: f.bookingUrl,
     go4eventsUrl: f.go4eventsUrl,
   };
 }

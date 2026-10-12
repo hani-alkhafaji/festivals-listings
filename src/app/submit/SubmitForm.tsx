@@ -82,6 +82,14 @@ export function SubmitForm() {
         />
       </label>
       <label>
+        Ticket booking link (optional)
+        <input
+          name="bookingUrl"
+          type="url"
+          placeholder="https://goandance.com/... or your ticket shop"
+        />
+      </label>
+      <label>
         Festival Instagram URL
         <input name="instagramUrl" type="url" placeholder="https://instagram.com/your_festival" />
       </label>

@@ -24,6 +24,12 @@ export default function AdminPage() {
             <li>
               <strong>go4eventsUrl</strong> = paste the Go4Events link
             </li>
+            <li>
+              <strong>bookingUrl</strong> = ticket shop link (green Book ticket now button)
+            </li>
+            <li>
+              <strong>instagramUrl</strong> = festival Instagram (optional)
+            </li>
           </ul>
         </li>
         <li>Wait 1–2 minutes, refresh your listing website (Ctrl+F5).</li>
