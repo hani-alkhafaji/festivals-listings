@@ -1,39 +1,19 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getFestivalById, getLocalFestivals } from "@/lib/festivals";
+import { fetchFestivalById } from "@/lib/loadPublished";
 import styles from "./detail.module.css";
 
-async function loadFestival(id: string) {
-  const gasUrl = process.env.GAS_WEB_APP_URL;
-  if (gasUrl) {
-    try {
-      const url = new URL(gasUrl);
-      url.searchParams.set("action", "festivals");
-      const res = await fetch(url.toString(), { next: { revalidate: 120 } });
-      if (res.ok) {
-        const data = await res.json();
-        if (data.ok && Array.isArray(data.festivals)) {
-          return data.festivals.find((f: { id: string }) => f.id === id) ?? null;
-        }
-      }
-    } catch {
-      /* fallback */
-    }
-  }
-  return getFestivalById(id);
-}
-
-export async function generateStaticParams() {
-  return getLocalFestivals().map((f) => ({ id: f.id }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function FestivalDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const festival = await loadFestival(params.id);
+  const festival = await fetchFestivalById(params.id);
   if (!festival) notFound();
+
+  const imageSrc = festival.image || "/festivals/placeholder.svg";
 
   return (
     <div className={styles.page}>
@@ -43,7 +23,7 @@ export default async function FestivalDetailPage({
       <article className={styles.card}>
         <div className={styles.imageWrap}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={festival.image} alt={festival.title} className={styles.image} />
+          <img src={imageSrc} alt={festival.title} className={styles.image} />
         </div>
         <div className={styles.body}>
           <h1 className={styles.title}>{festival.title}</h1>

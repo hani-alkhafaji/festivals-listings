@@ -3,12 +3,14 @@ import type { Festival } from "@/lib/festivals";
 import styles from "./FestivalCard.module.css";
 
 export function FestivalCard({ festival }: { festival: Festival }) {
+  const imageSrc = festival.image || "/festivals/placeholder.svg";
+
   return (
-    <Link href={`/festival/${festival.id}`} className={styles.link}>
+    <Link href={`/festival/${encodeURIComponent(festival.id)}`} className={styles.link}>
       <article className={styles.card}>
         <div className={styles.imageWrap}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={festival.image} alt={festival.title} className={styles.image} />
+          <img src={imageSrc} alt={festival.title} className={styles.image} />
         </div>
         <div className={styles.body}>
           <p className={styles.meta}>
