@@ -1,5 +1,9 @@
 const DEFAULT_PROJECT_ID = "bachataalist-x7jsy8";
 
+/** Same zone as most events (matches Go4Events in Austria / Central Europe). */
+const EVENT_TIMEZONE =
+  process.env.EVENT_TIMEZONE?.trim() || "Europe/Vienna";
+
 type FirestoreValue = {
   stringValue?: string;
   timestampValue?: string;
@@ -35,29 +39,47 @@ export type Go4EventData = {
   descriptionLong: string;
 };
 
-function formatDisplayDate(iso: string): string {
-  if (!iso) return "";
+function parseIsoDate(iso: string): Date | null {
+  if (!iso) return null;
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString("en-GB", {
+  if (Number.isNaN(d.getTime())) return null;
+  return d;
+}
+
+function formatDisplayDate(iso: string): string {
+  const d = parseIsoDate(iso);
+  if (!d) return iso;
+  return new Intl.DateTimeFormat("en-GB", {
+    timeZone: EVENT_TIMEZONE,
     day: "2-digit",
     month: "short",
     year: "numeric",
-  }).toUpperCase().replace(/\./g, "");
+  })
+    .format(d)
+    .toUpperCase()
+    .replace(/\./g, "");
 }
 
 function formatTime(iso: string): string {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false });
+  const d = parseIsoDate(iso);
+  if (!d) return "";
+  return new Intl.DateTimeFormat("en-GB", {
+    timeZone: EVENT_TIMEZONE,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(d);
 }
 
 function sortDateFromIso(iso: string): string {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toISOString().slice(0, 10);
+  const d = parseIsoDate(iso);
+  if (!d) return "";
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: EVENT_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(d);
 }
 
 export async function fetchGo4EventByUrl(go4Url: string): Promise<Go4EventData | null> {
