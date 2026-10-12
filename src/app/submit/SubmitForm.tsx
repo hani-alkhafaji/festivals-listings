@@ -73,13 +73,27 @@ export function SubmitForm() {
         <input name="email" type="email" required maxLength={200} />
       </label>
       <label>
-        Festival Instagram URL
-        <input name="instagramUrl" type="url" placeholder="https://instagram.com/..." />
+        Festival entrance ticket price (for visitors)
+        <input
+          name="ticketPrice"
+          type="text"
+          placeholder="e.g. €25, Free before 22:00, from €30"
+          maxLength={120}
+        />
       </label>
       <label>
-        Poster image URL
-        <input name="imageUrl" type="url" placeholder="https://... or /festivals/photo.jpg after you upload to GitHub" />
+        Festival Instagram URL
+        <input name="instagramUrl" type="url" placeholder="https://instagram.com/your_festival" />
       </label>
+      <label>
+        Poster image URL (optional)
+        <input name="imageUrl" type="url" placeholder="https://..." />
+      </label>
+      <p className={styles.help}>
+        For the poster link: upload your image to Go4Events when you create the event, or use a
+        public link (Google Drive → Share → anyone with the link → copy link). We keep the URL field
+        to keep the form simple.
+      </p>
       <label>
         Short description *
         <textarea name="description" required rows={4} maxLength={2000} />

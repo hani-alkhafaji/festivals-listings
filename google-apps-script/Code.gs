@@ -50,7 +50,8 @@ function doPost(e) {
         data.imageUrl || '',
         data.description,
         data.status || 'NEW',
-        data.listingFeeEur || 49
+        data.listingFeeEur || 49,
+        data.ticketPrice || ''
       ]);
       return jsonOut({ ok: true });
     }
@@ -72,7 +73,14 @@ function doGet(e) {
       var festivals = [];
       for (var i = 1; i < values.length; i++) {
         var row = values[i];
-        if (!row[0] && !row[1]) continue;
+        var hasAny = false;
+        for (var j = 0; j < row.length; j++) {
+          if (String(row[j]).trim() !== '') {
+            hasAny = true;
+            break;
+          }
+        }
+        if (!hasAny) continue;
         var obj = {};
         for (var c = 0; c < headers.length; c++) {
           var key = headers[c];

@@ -62,7 +62,9 @@ function normalizeFestival(raw: Record<string, unknown>): Festival | null {
     descriptionLong: String(
       raw.descriptionLong ?? raw.descriptionShort ?? raw.description ?? ""
     ).trim(),
-    instagramUrl: String(raw.instagramUrl ?? "").trim(),
+    instagramUrl:
+      pickField(raw, ["instagramurl", "instagram"]) ||
+      String(raw.instagramUrl ?? "").trim(),
     go4eventsUrl,
   };
 }
@@ -96,6 +98,7 @@ async function enrichFromGo4(f: Festival): Promise<Festival> {
     image: f.image || fromGo4.image,
     descriptionShort: f.descriptionShort || fromGo4.descriptionShort,
     descriptionLong: f.descriptionLong || fromGo4.descriptionLong,
+    instagramUrl: f.instagramUrl,
     go4eventsUrl: f.go4eventsUrl,
   };
 }

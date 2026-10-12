@@ -81,3 +81,11 @@
   color: #b91c1c;
   line-height: 1.5;
 }
+
+.help {
+  margin: -0.35rem 0 0;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #555;
+}
