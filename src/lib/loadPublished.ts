@@ -1,3 +1,4 @@
+import { fetchGo4EventByUrl, extractGo4EventId } from "@/lib/go4events";
 import {
   getLocalFestivals,
   sortFestivals,
@@ -5,8 +6,13 @@ import {
 } from "@/lib/festivals";
 
 function normalizeFestival(raw: Record<string, unknown>): Festival | null {
-  const id = String(raw.id ?? "").trim();
-  if (!id) return null;
+  const go4eventsUrl = String(raw.go4eventsUrl ?? raw.go4events ?? "").trim();
+
+  let id = String(raw.id ?? "").trim();
+  if (!id && go4eventsUrl) {
+    id = extractGo4EventId(go4eventsUrl) || "";
+  }
+  if (!id && !go4eventsUrl) return null;
 
   let image = String(raw.image ?? raw.imageUrl ?? "").trim();
   if (image) {
@@ -17,7 +23,7 @@ function normalizeFestival(raw: Record<string, unknown>): Festival | null {
   }
 
   return {
-    id,
+    id: id || "event",
     title: String(raw.title ?? "").trim(),
     city: String(raw.city ?? "").trim(),
     address: String(raw.address ?? "").trim(),
@@ -32,6 +38,31 @@ function normalizeFestival(raw: Record<string, unknown>): Festival | null {
       raw.descriptionLong ?? raw.descriptionShort ?? raw.description ?? ""
     ).trim(),
     instagramUrl: String(raw.instagramUrl ?? "").trim(),
+    go4eventsUrl,
+  };
+}
+
+async function enrichFromGo4(f: Festival): Promise<Festival> {
+  if (!f.go4eventsUrl) return f;
+
+  const fromGo4 = await fetchGo4EventByUrl(f.go4eventsUrl);
+  if (!fromGo4) return f;
+
+  return {
+    ...f,
+    id: f.id || fromGo4.id,
+    title: f.title || fromGo4.title,
+    city: f.city || fromGo4.city,
+    address: f.address || fromGo4.address,
+    dateStart: f.dateStart || fromGo4.dateStart,
+    dateEnd: f.dateEnd || fromGo4.dateEnd,
+    timeStart: f.timeStart || fromGo4.timeStart,
+    timeEnd: f.timeEnd || fromGo4.timeEnd,
+    sortDate: f.sortDate || fromGo4.sortDate,
+    image: f.image || fromGo4.image,
+    descriptionShort: f.descriptionShort || fromGo4.descriptionShort,
+    descriptionLong: f.descriptionLong || fromGo4.descriptionLong,
+    go4eventsUrl: f.go4eventsUrl,
   };
 }
 
@@ -45,10 +76,14 @@ export async function fetchPublishedFestivals(): Promise<Festival[]> {
       if (res.ok) {
         const data = await res.json();
         if (data.ok && Array.isArray(data.festivals)) {
-          const list = data.festivals
+          const base = data.festivals
             .map((row: Record<string, unknown>) => normalizeFestival(row))
-            .filter((f: Festival | null): f is Festival => f !== null && !!f.title);
-          if (list.length > 0) return sortFestivals(list);
+            .filter(
+              (f: Festival | null): f is Festival =>
+                f !== null && (!!f.go4eventsUrl || !!f.title)
+            );
+          const enriched = await Promise.all(base.map(enrichFromGo4));
+          if (enriched.length > 0) return sortFestivals(enriched);
         }
       }
     } catch {

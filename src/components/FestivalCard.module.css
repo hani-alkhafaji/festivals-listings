@@ -74,3 +74,10 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.go4Hint {
+  margin: 0.75rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #666;
+}

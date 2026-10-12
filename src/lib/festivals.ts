@@ -15,6 +15,8 @@ export type Festival = {
   descriptionShort: string;
   descriptionLong: string;
   instagramUrl: string;
+  /** When set, card opens this Go4Events page (image/title loaded from Go4Events). */
+  go4eventsUrl?: string;
 };
 
 export function getSiteConfig() {
