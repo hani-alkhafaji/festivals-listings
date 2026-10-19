@@ -56,8 +56,11 @@ export function SiteHeader({ cityOptions }: { cityOptions: string[] }) {
         <Link href="/submit" className={styles.drawerLink} onClick={() => setOpen(false)}>
           Submit your festival (€49 listing)
         </Link>
-        <Link href="/admin" className={styles.drawerLink} onClick={() => setOpen(false)}>
-          Publisher notes
+        <Link href="/join-network" className={styles.drawerLink} onClick={() => setOpen(false)}>
+          Join international repost network
+        </Link>
+        <Link href="/how-it-works" className={styles.drawerLink} onClick={() => setOpen(false)}>
+          How to publish on this site
         </Link>
       </nav>
     </>

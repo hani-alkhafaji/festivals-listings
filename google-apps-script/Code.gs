@@ -10,6 +10,7 @@
 
 var REQUESTS_SHEET = 'Festival Requests';
 var PUBLISHED_SHEET = 'Published Festivals';
+var NETWORK_SHEET = 'Network Members';
 
 /** Optional: paste Sheet ID if script is not opened from the sheet */
 var SPREADSHEET_ID = '';
@@ -53,6 +54,24 @@ function doPost(e) {
         data.listingFeeEur || 49,
         data.ticketPrice || '',
         data.bookingUrl || ''
+      ]);
+      return jsonOut({ ok: true });
+    }
+    if (data.type === 'network_member') {
+      var nSheet = getSpreadsheet().getSheetByName(NETWORK_SHEET);
+      if (!nSheet) throw new Error('Missing tab: ' + NETWORK_SHEET);
+      nSheet.appendRow([
+        data.timestamp || new Date(),
+        data.festivalPageName,
+        data.instagramUsername,
+        data.city,
+        data.email,
+        data.repostAvailability,
+        data.maxRepostsPerMonth,
+        data.go4eventsUrl || '',
+        data.notes || '',
+        data.agreementAccepted || '',
+        data.status || 'NEW'
       ]);
       return jsonOut({ ok: true });
     }
