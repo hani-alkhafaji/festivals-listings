@@ -29,7 +29,7 @@ export default function HowItWorksPage() {
             We email you about the <strong>€49 listing fee</strong>. This amount is for us to publish your event on our Instagrame page and Our International Website.
           </li>
           <li>
-            After payment, we publish your event (usually via Go4Events + this site). You can
+            After payment, we publish your event (usually via Instgrame page + Go4Events + this site). You can
             share your Go4Events link and poster with us in the form.
           </li>
         </ol>
