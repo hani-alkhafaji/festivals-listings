@@ -86,67 +86,6 @@
   color: #b91c1c;
 }
 
-.typeFieldset {
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-
-.typeLegend {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #222;
-  padding: 0;
-  margin-bottom: 0.35rem;
-}
-
-.typeGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.typeChip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.65rem;
-  border: 1px solid #ddd;
-  border-radius: 999px;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  cursor: pointer;
-  background: #fff;
-}
-
-.typeChip:has(input:checked) {
-  border-color: #111;
-  background: #f4f4f5;
-}
-
-.typeChip input {
-  width: auto;
-  margin: 0;
-}
-
-.otherTypeLabel {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  margin-top: 0.75rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.otherTypeLabel input {
-  padding: 0.65rem 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font: inherit;
-  font-weight: 400;
-}
-
 .periodBlock {
   display: flex;
   flex-direction: column;
