@@ -26,7 +26,7 @@ export default function HowItWorksPage() {
           <li>Fill in the form with your festival details.</li>
           <li>We receive your request in our system.</li>
           <li>
-            We email you about the <strong>€49 listing fee</strong>. This amount is for us to publish your event on our Instagrame page and Our International Website.
+            We email you about the <strong>€49 listing fee</strong>. This amount is fee to publish your event on our Instagrame page and Our International Website.
           </li>
           <li>
             After payment, we publish your event (usually via Instgrame page + Go4Events + this site). You can
