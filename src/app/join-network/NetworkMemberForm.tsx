@@ -1,12 +1,18 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import {
+  RepostPeriodPicker,
+  periodsToSheetText,
+  type RepostPeriod,
+} from "./RepostPeriodPicker";
 import styles from "./join-network.module.css";
 
 export function NetworkMemberForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
   const [message, setMessage] = useState("");
   const [agreed, setAgreed] = useState(false);
+  const [periods, setPeriods] = useState<RepostPeriod[]>([]);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -15,12 +21,18 @@ export function NetworkMemberForm() {
       setStatus("error");
       return;
     }
+    if (periods.length === 0) {
+      setMessage("Please add at least one date range for repost availability.");
+      setStatus("error");
+      return;
+    }
     setStatus("loading");
     setMessage("");
     const form = e.currentTarget;
     const fd = new FormData(form);
-    const payload = Object.fromEntries(fd.entries());
+    const payload = Object.fromEntries(fd.entries()) as Record<string, string>;
     payload.agreementAccepted = agreed ? "yes" : "no";
+    payload.repostAvailability = periodsToSheetText(periods);
 
     try {
       const res = await fetch("/api/submit-network", {
@@ -33,9 +45,10 @@ export function NetworkMemberForm() {
         throw new Error(data.error || "Submission failed");
       }
       setStatus("ok");
-      setMessage("Thank you. We received your application and will contact you by email.");
+      setMessage("Thank you. We received your application and we will contact you by email.");
       form.reset();
       setAgreed(false);
+      setPeriods([]);
     } catch (err) {
       setStatus("error");
       setMessage(err instanceof Error ? err.message : "Something went wrong");
@@ -60,15 +73,9 @@ export function NetworkMemberForm() {
         Contact email *
         <input name="email" type="email" required maxLength={200} />
       </label>
-      <label>
-        When can you repost other festivals? (days / times) *
-        <textarea
-          name="repostAvailability"
-          required
-          rows={3}
-          placeholder="e.g. Mon–Thu 10:00–18:00, or anytime on weekends"
-        />
-      </label>
+
+      <RepostPeriodPicker periods={periods} onChange={setPeriods} />
+
       <label>
         Max reposts per month you accept *
         <input
