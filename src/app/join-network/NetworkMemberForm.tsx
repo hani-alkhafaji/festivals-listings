@@ -75,7 +75,7 @@ export function NetworkMemberForm() {
       </label>
 
       <label>
-        Event / music style in your page *
+        Event / music style in your Event *
         <input
           name="eventTypes"
           required
