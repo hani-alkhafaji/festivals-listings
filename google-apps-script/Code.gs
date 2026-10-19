@@ -66,6 +66,7 @@ function doPost(e) {
         data.instagramUsername,
         data.city,
         data.email,
+        data.eventTypes || '',
         data.repostAvailability,
         data.maxRepostsPerMonth,
         data.go4eventsUrl || '',

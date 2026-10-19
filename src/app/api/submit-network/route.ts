@@ -31,6 +31,10 @@ export async function POST(request: Request) {
     }
   }
 
+  if (!String(body.eventTypes ?? "").trim()) {
+    return NextResponse.json({ ok: false, error: "Missing field: eventTypes" }, { status: 400 });
+  }
+
   if (body.agreementAccepted !== "yes") {
     return NextResponse.json({ ok: false, error: "Agreement must be accepted" }, { status: 400 });
   }

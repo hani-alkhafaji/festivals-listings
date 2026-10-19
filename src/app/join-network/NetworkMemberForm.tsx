@@ -2,6 +2,10 @@
 
 import { useState, type FormEvent } from "react";
 import {
+  EventTypeSelector,
+  eventTypesForSheet,
+} from "./EventTypeSelector";
+import {
   RepostPeriodPicker,
   periodsToSheetText,
   type RepostPeriod,
@@ -13,11 +17,18 @@ export function NetworkMemberForm() {
   const [message, setMessage] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [periods, setPeriods] = useState<RepostPeriod[]>([]);
+  const [eventTypes, setEventTypes] = useState<string[]>([]);
+  const [eventTypesOther, setEventTypesOther] = useState("");
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!agreed) {
       setMessage("Please accept the agreement to continue.");
+      setStatus("error");
+      return;
+    }
+    if (eventTypes.length === 0) {
+      setMessage("Please select at least one event type.");
       setStatus("error");
       return;
     }
@@ -32,6 +43,7 @@ export function NetworkMemberForm() {
     const fd = new FormData(form);
     const payload = Object.fromEntries(fd.entries()) as Record<string, string>;
     payload.agreementAccepted = agreed ? "yes" : "no";
+    payload.eventTypes = eventTypesForSheet(eventTypes, eventTypesOther);
     payload.repostAvailability = periodsToSheetText(periods);
 
     try {
@@ -49,6 +61,8 @@ export function NetworkMemberForm() {
       form.reset();
       setAgreed(false);
       setPeriods([]);
+      setEventTypes([]);
+      setEventTypesOther("");
     } catch (err) {
       setStatus("error");
       setMessage(err instanceof Error ? err.message : "Something went wrong");
@@ -73,6 +87,13 @@ export function NetworkMemberForm() {
         Contact email *
         <input name="email" type="email" required maxLength={200} />
       </label>
+
+      <EventTypeSelector
+        selected={eventTypes}
+        onChange={setEventTypes}
+        otherText={eventTypesOther}
+        onOtherTextChange={setEventTypesOther}
+      />
 
       <RepostPeriodPicker periods={periods} onChange={setPeriods} />
 
